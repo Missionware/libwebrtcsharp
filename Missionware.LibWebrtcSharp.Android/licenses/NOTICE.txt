@@ -1,0 +1,48 @@
+﻿Missionware.LibWebRtcSharp.Android
+Copyright (c) 2025 Missionware
+Licensed under the BSD 3-Clause License (see LICENSE-BSD.txt)
+
+This package redistributes binary components from:
+
+1. WebRTC (https://webrtc.org)
+   Copyright (c) 2011, The WebRTC project authors.
+   Licensed under BSD 3-Clause.
+   Additional patent rights grant included (see LICENSE-Google-IP-Grant.txt).
+
+2. webrtc-sdk/webrtc (https://github.com/webrtc-sdk/webrtc)
+   Licensed under BSD 3-Clause.
+   Includes modifications to the WebRTC build system.
+
+3. shiguredo/webrtc (https://github.com/shiguredo/webrtc)
+   Licensed under Apache License 2.0.
+   © 2019–2021 Wandbox LLC and Shiguredo Inc.
+   Modifications referenced by GetStream/webrtc-android are derived from this work.
+
+4. GetStream/webrtc-android (https://github.com/GetStream/webrtc-android)
+   © 2023 Stream.IO, Inc.
+   Licensed under Apache License 2.0.
+
+Redistribution and use of this package are subject to the BSD 3-Clause license terms
+provided above. All included third-party components retain their respective original
+licenses.
+
+---
+
+### Codec Notice
+
+This package does **not** include any software H.264/AVC (OpenH264/x264/FFmpeg).
+All H.264/AVC functionality relies solely on Android’s hardware MediaCodec subsystem.
+
+---
+
+### Summary
+
+| Component | License | Notes |
+|------------|----------|-------|
+| Missionware.LibWebRtcSharp.Android | BSD 3-Clause | Wrapper & NuGet packaging |
+| Google WebRTC | BSD 3-Clause + Patent Grant | Core native engine |
+| webrtc-sdk/webrtc | BSD 3-Clause | Build modifications |
+| shiguredo/webrtc | Apache 2.0 | Patches incorporated upstream |
+| GetStream/webrtc-android | Apache 2.0 | AAR and Java glue layer |
+
+Full license texts are located in `Missionware.LibWebRtcSharp.Android/licenses/`.

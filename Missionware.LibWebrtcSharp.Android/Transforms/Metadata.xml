@@ -1,0 +1,14 @@
+﻿<metadata>
+	<attr path="/api/package[@name='org.webrtc']/interface[@name='VideoFrame.TextureBuffer']/method[@name='getType' and count(parameter)=0]"
+		name="managedName">getBufferType</attr>
+	<attr path="/api/package[@name='org.webrtc']/class[@name='TextureBufferImpl']/method[@name='getType' and count(parameter)=0]"
+	    name="managedName">getBufferType</attr>
+	<attr path="/api/package[@name='org.webrtc']/interface[@name='VideoEncoder']/method[@name='getScalingSettings' and count(parameter)=0]"
+		name="managedName">ReadScalingSettings</attr>
+	<attr path="/api/package[@name='org.webrtc']/class[@name='WrappedNativeVideoEncoder']/method[@name='getScalingSettings' and count(parameter)=0]"
+		name="managedName">ReadScalingSettings</attr>
+	<attr path="/api/package[@name='org.webrtc']/class[@name='StatsReport.Value']/field[@name='value']"
+		name="managedName">ValueStr</attr>
+	<attr path="/api/package[@name='org.webrtc.voiceengine']"
+		name="managedName">Org.Webrtc.Audio</attr>
+</metadata>
