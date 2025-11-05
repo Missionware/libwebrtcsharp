@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net9.0-android</TargetFramework>
+    <TargetFramework>net8.0-android</TargetFramework>
     <SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -16,13 +16,17 @@
 	  <RepositoryUrl>https://github.com/missionware/libwebrtcsharp</RepositoryUrl>
 	  <PackageLicenseExpression>BSD-3-Clause AND Apache-2.0</PackageLicenseExpression>
 	  <PackageReadmeFile>README.md</PackageReadmeFile>
+	  <PackageIcon>missionware-logo-small.png</PackageIcon>
 	  <IsPackable>true</IsPackable>
 	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	  <IncludeSymbols>false</IncludeSymbols>
 	  <NoWarn>NU5128</NoWarn>
   </PropertyGroup>
-
 	<ItemGroup>
+		<None Include="missionware-logo-small.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
 		<None Include="README.md" Pack="true" PackagePath="" />
 		<None Include="licenses\**\*" Pack="true" PackagePath="licenses\" />
 	</ItemGroup>
