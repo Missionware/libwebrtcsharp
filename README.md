@@ -67,26 +67,7 @@ Or add to your `.csproj`:
 
 ### Usage
 
-Once installed, the WebRTC Java bindings are automatically available in your .NET for Android project under the `Org.Webrtc` namespace:
-
-```csharp
-using Org.Webrtc;
-
-// Initialize PeerConnectionFactory
-var options = PeerConnectionFactory.InitializationOptions.InvokeBuilder(context)
-    .SetEnableInternalTracer(true)
-    .CreateInitializationOptions();
-
-PeerConnectionFactory.Initialize(options);
-
-// Create PeerConnectionFactory
-var factory = PeerConnectionFactory.InvokeBuilder()
-    .SetVideoEncoderFactory(new DefaultVideoEncoderFactory(eglBase.EglBaseContext, true, true))
-    .SetVideoDecoderFactory(new DefaultVideoDecoderFactory(eglBase.EglBaseContext))
-    .CreatePeerConnectionFactory();
-```
-
-For complete examples and documentation, see the [Android project README](Missionware.LibWebRtcSharp.Android/README.md).
+Once installed, the WebRTC Java bindings are automatically available in your .NET for Android project under the `Org.Webrtc` namespace. For examples and documentation, see the [Android project README](Missionware.LibWebrtcSharp.Android/README.md).
 
 ---
 
