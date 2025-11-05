@@ -1,4 +1,4 @@
-# Missionware.LibWebRtcSharp
+# Missionware.LibWebrtcSharp
 
 **Missionware.LibWebRtcSharp** is a collection of .NET bindings and wrappers for **WebRTC** native libraries across multiple platforms. This project provides production-ready NuGet packages where possible, or the way to build ones, that enable real-time communication capabilities in .NET applications, including support for video, audio, and data channels.
 
@@ -14,9 +14,9 @@ Each platform-specific package includes:
 
 | Platform | Package | WebRTC Source | Status |
 |----------|---------|---------------|--------|
-| **Android** | `Missionware.LibWebRtcSharp.Android` | [GetStream/webrtc-android](https://github.com/GetStream/webrtc-android) | ✅ Available |
-| **iOS** | `Missionware.LibWebRtcSharp.iOS` | _Coming soon_ | 🚧 Planned |
-| **Windows** | `Missionware.LibWebRtcSharp.Windows` | _Coming soon_ | 🚧 Planned |
+| **Android** | `Missionware.LibWebrtcSharp.Android` | [GetStream/webrtc-android](https://github.com/GetStream/webrtc-android) | [![NuGet Version](https://img.shields.io/nuget/v/Missionware.LibWebrtcSharp.Android.svg)](https://www.nuget.org/packages/Missionware.LibWebrtcSharp.Android/) |
+| **iOS** | `Missionware.LibWebrtcSharp.iOS` | _Coming soon_ | 🚧 Planned |
+| **Windows** | `Missionware.LibWebrtcSharp.Windows` | _Coming soon_ | 🚧 Planned |
 
 ---
 
@@ -24,7 +24,7 @@ Each platform-specific package includes:
 
 ### Overview
 
-**Missionware.LibWebRtcSharp.Android** provides prebuilt **WebRTC native binaries for Android** from [GetStream/webrtc-android](https://github.com/GetStream/webrtc-android), packaged as a reusable NuGet for .NET for Android / MAUI Android projects.
+**Missionware.LibWebrtcSharp.Android** provides prebuilt **WebRTC native binaries for Android** from [GetStream/webrtc-android](https://github.com/GetStream/webrtc-android), packaged as a reusable NuGet for .NET for Android / MAUI Android projects.
 
 It includes the **Java glue layer** (AAR) required by Android bindings and automatically wires everything into your build.
 
@@ -56,13 +56,13 @@ NuGet version `1.12510310.0` encodes both WebRTC milestone and Stream version:
 Install via NuGet Package Manager or .NET CLI:
 
 ```bash
-dotnet add package Missionware.LibWebRtcSharp.Android
+dotnet add package Missionware.LibWebrtcSharp.Android
 ```
 
 Or add to your `.csproj`:
 
 ```xml
-<PackageReference Include="Missionware.LibWebRtcSharp.Android" Version="1.12510310.0" />
+<PackageReference Include="Missionware.LibWebrtcSharp.Android" Version="1.12510310.0" />
 ```
 
 ### Usage

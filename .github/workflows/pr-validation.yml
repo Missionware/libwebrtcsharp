@@ -58,7 +58,7 @@ jobs:
         $zip = [System.IO.Compression.ZipFile]::OpenRead($package.FullName)
         
         $requiredFiles = @(
-          "lib/net9.0-android/Missionware.LibWebRtcSharp.Android.dll",
+          "lib/net9.0-android/Missionware.LibWebrtcSharp.Android.dll",
           "licenses/"
         )
         

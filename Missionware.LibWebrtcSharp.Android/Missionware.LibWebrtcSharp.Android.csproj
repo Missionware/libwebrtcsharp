@@ -6,11 +6,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <!-- Enable trim analyzers for Android class libraries. -->
     <IsTrimmable>true</IsTrimmable>
-	  <PackageId>Missionware.LibWebRtcSharp.Android</PackageId>
 	  <!-- Version: 3-segment scheme: 1 . (m125 + Stream 1.3.10) . 0 -->
-	  <Version>1.12510310.0</Version>
+	  <Version>1.12510310.1</Version>
 	  <AssemblyVersion>1.0.0.0</AssemblyVersion>
-	  <FileVersion>1.125.10310.0</FileVersion>
+	  <FileVersion>1.125.10310.1</FileVersion>
 	  <Description>Android WebRTC (GetStream webrtc-android) packaged for .NET. Includes Java glue via AAR; H.264 via MediaCodec (hardware).</Description>
 	  <Authors>Missionware</Authors>
 	  <RepositoryUrl>https://github.com/missionware/libwebrtcsharp</RepositoryUrl>
@@ -18,7 +17,7 @@
 	  <PackageReadmeFile>README.md</PackageReadmeFile>
 	  <PackageIcon>missionware-logo-small.png</PackageIcon>
 	  <IsPackable>true</IsPackable>
-	  <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	  <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 	  <IncludeSymbols>false</IncludeSymbols>
 	  <NoWarn>NU5128</NoWarn>
   </PropertyGroup>

@@ -1,4 +1,4 @@
-﻿Missionware.LibWebRtcSharp.Android
+﻿Missionware.LibWebrtcSharp.Android
 Copyright (c) 2025 Missionware
 Licensed under the BSD 3-Clause License (see LICENSE-BSD.txt)
 
@@ -39,10 +39,10 @@ All H.264/AVC functionality relies solely on Android’s hardware MediaCodec sub
 
 | Component | License | Notes |
 |------------|----------|-------|
-| Missionware.LibWebRtcSharp.Android | BSD 3-Clause | Wrapper & NuGet packaging |
+| Missionware.LibWebrtcSharp.Android | BSD 3-Clause | Wrapper & NuGet packaging |
 | Google WebRTC | BSD 3-Clause + Patent Grant | Core native engine |
 | webrtc-sdk/webrtc | BSD 3-Clause | Build modifications |
 | shiguredo/webrtc | Apache 2.0 | Patches incorporated upstream |
 | GetStream/webrtc-android | Apache 2.0 | AAR and Java glue layer |
 
-Full license texts are located in `Missionware.LibWebRtcSharp.Android/licenses/`.
+Full license texts are located in `Missionware.LibWebrtcSharp.Android/licenses/`.

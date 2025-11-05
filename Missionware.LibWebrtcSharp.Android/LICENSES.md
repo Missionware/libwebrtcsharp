@@ -1,4 +1,4 @@
-# Missionware.LibWebRtcSharp.Android — License Summary
+# Missionware.LibWebrtcSharp.Android — License Summary
 
 **Primary License:** [BSD 3-Clause License](licenses/LICENSE-BSD.txt)  
 Copyright (c) 2025 Missionware  
@@ -16,7 +16,7 @@ Each component retains its original license, reproduced in the [`/licenses`](lic
 
 | Component | Source | License | Notes |
 |------------|---------|----------|-------|
-| **Missionware.LibWebRtcSharp.Android** | Missionware | BSD 3-Clause | Wrapper and NuGet packaging |
+| **Missionware.LibWebrtcSharp.Android** | Missionware | BSD 3-Clause | Wrapper and NuGet packaging |
 | **WebRTC** | [webrtc.org](https://webrtc.org) | BSD 3-Clause + [Google IP Grant](licenses/LICENSE-Google-IP-Grant.txt) | Core native engine |
 | **webrtc-sdk/webrtc** | [github.com/webrtc-sdk/webrtc](https://github.com/webrtc-sdk/webrtc) | BSD 3-Clause | Build system and native patches |
 | **shiguredo/webrtc** | [github.com/shiguredo/webrtc](https://github.com/shiguredo/webrtc) | Apache 2.0 | Additional patches (via GetStream) |
@@ -41,7 +41,7 @@ See [`licenses/LICENSE-BSD.txt`](licenses/LICENSE-BSD.txt) for full text.
 ## 🧠 SPDX Summary
 
 ```
-SPDX-PackageName: Missionware.LibWebRtcSharp.Android
+SPDX-PackageName: Missionware.LibWebrtcSharp.Android
 SPDX-PackageVersion: 1.12510310.0
 SPDX-PackageSupplier: Organization: Missionware
 SPDX-PackageLicenseConcluded: BSD-3-Clause

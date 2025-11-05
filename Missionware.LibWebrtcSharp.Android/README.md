@@ -1,6 +1,6 @@
-# Missionware.LibWebRtcSharp.Android
+# Missionware.LibWebrtcSharp.Android
 
-**Missionware.LibWebRtcSharp.Android** provides prebuilt **WebRTC native binaries for Android** from [GetStream/webrtc-android](https://github.com/GetStream/webrtc-android), packaged as a reusable NuGet for .NET for Android / MAUI Android projects.
+**Missionware.LibWebrtcSharp.Android** provides prebuilt **WebRTC native binaries for Android** from [GetStream/webrtc-android](https://github.com/GetStream/webrtc-android), packaged as a reusable NuGet for .NET for Android / MAUI Android projects.
 
 It includes the **Java glue layer** (AAR) required by Android bindings and automatically wires everything into your build.
 
