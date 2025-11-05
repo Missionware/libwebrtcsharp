@@ -14,7 +14,6 @@ It includes the **Java glue layer** (AAR) required by Android bindings and autom
 
 - Contains the **native `libjingle_peerconnection_so.so`** binaries for all supported ABIs.
 - Includes Java classes and manifest metadata from the AAR.
-- Automatically merges manifests, includes ProGuard/R8 rules, and loads JNI libs by ABI.
 - Compatible with **.NET 8 for Android** and **.NET MAUI Android**.
 
 ---

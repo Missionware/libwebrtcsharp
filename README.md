@@ -35,7 +35,6 @@ It includes the **Java glue layer** (AAR) required by Android bindings and autom
 **Features:**
 - Contains the **native `libjingle_peerconnection_so.so`** binaries for all supported ABIs.
 - Includes Java classes and manifest metadata from the AAR.
-- Automatically merges manifests, includes ProGuard/R8 rules, and loads JNI libs by ABI.
 - Compatible with **.NET 9 for Android** and **.NET MAUI Android**.
 
 ### Versioning Scheme
@@ -46,7 +45,7 @@ NuGet version `1.12510310.0` encodes both WebRTC milestone and Stream version:
 1.M[milestone]V[stream-version].P[patch]
   │ │          │                 │
   │ │          │                 └─ Patch version (0)
-  │ │          └─────────────────── Stream version (10310 → 1.3.10)
+  │ │          └─────────────────── Stream version (10310 → 1.03.10)
   │ └────────────────────────────── WebRTC milestone (125 → m125)
   └──────────────────────────────── Major version prefix (1)
 ```
