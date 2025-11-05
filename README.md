@@ -1,6 +1,6 @@
 # Missionware.LibWebRtcSharp
 
-**Missionware.LibWebRtcSharp** is a collection of .NET bindings and wrappers for **WebRTC** native libraries across multiple platforms. This project provides production-ready NuGet packages that enable real-time communication capabilities in .NET applications, including support for video, audio, and data channels.
+**Missionware.LibWebRtcSharp** is a collection of .NET bindings and wrappers for **WebRTC** native libraries across multiple platforms. This project provides production-ready NuGet packages where possible, or the way to build ones, that enable real-time communication capabilities in .NET applications, including support for video, audio, and data channels.
 
 Each platform-specific package includes:
 - **Prebuilt native WebRTC binaries** from trusted upstream sources
