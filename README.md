@@ -89,6 +89,13 @@ See [LICENSE](LICENSE) for full details and [Android LICENSES.md](Missionware.Li
 
 Contributions are welcome! Please feel free to submit issues, feature requests, or pull requests.
 
+### Development Workflow
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/my-feature`
+3. Make your changes
+4. Run local tests and build
+5. Submit a pull request
 ---
 
 ## 🔗 Resources

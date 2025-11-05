@@ -1,0 +1,109 @@
+name: PR Validation
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'Missionware.LibWebrtcSharp.Android/**'
+      - '.github/workflows/**'
+
+env:
+  DOTNET_VERSION: '9.0.x'
+  PROJECT_PATH: 'Missionware.LibWebrtcSharp.Android/Missionware.LibWebrtcSharp.Android.csproj'
+  CONFIGURATION: 'Release'
+
+jobs:
+  validate:
+    name: Validate PR Build
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Setup Java (required for Android builds)
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'microsoft'
+        java-version: '17'
+
+    - name: Install .NET workloads
+      run: |
+        dotnet workload install android
+        dotnet workload list
+
+    - name: Restore dependencies
+      run: dotnet restore ${{ env.PROJECT_PATH }}
+
+    - name: Build project
+      run: dotnet build ${{ env.PROJECT_PATH }} --configuration ${{ env.CONFIGURATION }} --no-restore
+
+    - name: Pack NuGet package
+      run: dotnet pack ${{ env.PROJECT_PATH }} --configuration ${{ env.CONFIGURATION }} --no-build --output ./artifacts
+
+    - name: Validate package metadata
+      shell: pwsh
+      run: |
+        $package = Get-ChildItem -Path ./artifacts/*.nupkg | Select-Object -First 1
+        Write-Host "Package created: $($package.Name)"
+        Write-Host "Package size: $([math]::Round($package.Length / 1MB, 2)) MB"
+        
+        # Check if package contains required files
+        Add-Type -AssemblyName System.IO.Compression.FileSystem
+        $zip = [System.IO.Compression.ZipFile]::OpenRead($package.FullName)
+        
+        $requiredFiles = @(
+          "lib/net9.0-android/Missionware.LibWebRtcSharp.Android.dll",
+          "licenses/"
+        )
+        
+        foreach ($required in $requiredFiles) {
+          $found = $zip.Entries | Where-Object { $_.FullName -like "*$required*" }
+          if ($found) {
+            Write-Host "? Found: $required"
+          } else {
+            Write-Host "? Missing: $required"
+            exit 1
+          }
+        }
+        
+        $zip.Dispose()
+        Write-Host "Package validation passed!"
+
+    - name: Comment PR with package info
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          const path = require('path');
+          
+          const artifactsDir = './artifacts';
+          const files = fs.readdirSync(artifactsDir);
+          const nupkgFile = files.find(f => f.endsWith('.nupkg'));
+          
+          if (nupkgFile) {
+            const stats = fs.statSync(path.join(artifactsDir, nupkgFile));
+            const sizeMB = (stats.size / (1024 * 1024)).toFixed(2);
+            
+            const comment = `### ?? NuGet Package Build Results
+            
+            ? Package built successfully!
+            
+            **Package:** \`${nupkgFile}\`
+            **Size:** ${sizeMB} MB
+            
+            The package is ready for publication once this PR is merged.`;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+          }
