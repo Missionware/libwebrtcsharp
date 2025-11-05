@@ -127,7 +127,7 @@ jobs:
     
     environment:
       name: nuget-production
-      url: https://www.nuget.org/packages/Missionware.LibWebRtcSharp.Android
+      url: https://www.nuget.org/packages/Missionware.LibWebrtcSharp.Android
     
     steps:
     - name: Download NuGet package artifact
