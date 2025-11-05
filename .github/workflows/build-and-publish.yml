@@ -2,7 +2,6 @@ name: Build and Publish NuGet Package
 
 on:
   push:
-    branches: [ main ]
     tags:
       - 'v*.*.*'
   pull_request:
@@ -16,9 +15,10 @@ on:
         default: false
 
 env:
-  DOTNET_VERSION: '9.0.x'
+  DOTNET_VERSION: '8.0.x'
   PROJECT_PATH: 'Missionware.LibWebrtcSharp.Android/Missionware.LibWebrtcSharp.Android.csproj'
   CONFIGURATION: 'Release'
+  ANDROID_SDK_VERSION: '34'
 
 jobs:
   build:
@@ -30,6 +30,7 @@ jobs:
       uses: actions/checkout@v4
       with:
         fetch-depth: 0  # Full history for versioning
+        lfs: true  # Enable Git LFS for large binary files like AAR
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
@@ -42,19 +43,61 @@ jobs:
         distribution: 'microsoft'
         java-version: '17'
 
-    - name: Install .NET workloads
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+      with:
+        api-level: ${{ env.ANDROID_SDK_VERSION }}
+        build-tools-version: '34.0.0'
+        
+    - name: Install .NET Android workload
       run: |
-        dotnet workload install android
+        dotnet workload install android --skip-manifest-update
         dotnet workload list
+   
+    - name: Install MAUI workload
+      run: |
+         dotnet workload install maui   
+   
+    - name: Display build environment info
+      run: |
+        dotnet --info
+        java -version
+        echo "ANDROID_HOME=$env:ANDROID_HOME"
+        echo "ANDROID_SDK_ROOT=$env:ANDROID_SDK_ROOT"
+
+    - name: Clean build artifacts
+      run: |
+        if (Test-Path "Missionware.LibWebrtcSharp.Android/obj") { Remove-Item -Recurse -Force "Missionware.LibWebrtcSharp.Android/obj" }
+        if (Test-Path "Missionware.LibWebrtcSharp.Android/bin") { Remove-Item -Recurse -Force "Missionware.LibWebrtcSharp.Android/bin" }
 
     - name: Restore dependencies
-      run: dotnet restore ${{ env.PROJECT_PATH }}
+      run: dotnet restore ${{ env.PROJECT_PATH }} -v detailed
 
     - name: Build project
-      run: dotnet build ${{ env.PROJECT_PATH }} --configuration ${{ env.CONFIGURATION }} --no-restore
+      run: |
+        dotnet build ${{ env.PROJECT_PATH }} `
+          --configuration ${{ env.CONFIGURATION }} `
+          --no-restore `
+          -p:AndroidSdkDirectory="$env:ANDROID_HOME" `
+          -p:JavaSdkDirectory="$env:JAVA_HOME" `
+          -v detailed `
+          -bl:build.binlog
 
     - name: Pack NuGet package
-      run: dotnet pack ${{ env.PROJECT_PATH }} --configuration ${{ env.CONFIGURATION }} --no-build --output ./artifacts
+      run: |
+        dotnet pack ${{ env.PROJECT_PATH }} `
+          --configuration ${{ env.CONFIGURATION }} `
+          --no-build `
+          --output ./artifacts `
+          -p:IncludeSymbols=false `
+          -v detailed
+
+    - name: List package contents
+      run: |
+        Get-ChildItem ./artifacts -Recurse
+        $package = Get-ChildItem ./artifacts/*.nupkg | Select-Object -First 1
+        Write-Host "Package: $($package.Name)"
+        Write-Host "Size: $([math]::Round($package.Length / 1MB, 2)) MB"
 
     - name: Upload NuGet package artifact
       uses: actions/upload-artifact@v4
@@ -71,6 +114,7 @@ jobs:
         path: |
           **/*.binlog
           **/obj/**/*.log
+          **/*log.txt
         retention-days: 3
 
   publish:
