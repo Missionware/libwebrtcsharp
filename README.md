@@ -46,8 +46,8 @@ NuGet version `1.12510310.0` encodes both WebRTC milestone and Stream version:
 1.M[milestone]V[stream-version].P[patch]
   │ │          │                 │
   │ │          │                 └─ Patch version (0)
-  │ │          └─────────────────── Stream version (310 → 1.3.10)
-  │ └────────────────────────────── WebRTC milestone (12510 → m125.10)
+  │ │          └─────────────────── Stream version (10310 → 1.3.10)
+  │ └────────────────────────────── WebRTC milestone (125 → m125)
   └──────────────────────────────── Major version prefix (1)
 ```
 
