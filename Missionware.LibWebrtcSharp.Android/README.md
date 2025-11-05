@@ -20,5 +20,5 @@ It includes the **Java glue layer** (AAR) required by Android bindings and autom
 
 ## 🧩 Versioning scheme
 
-NuGet version `1.12510310.0` encodes both WebRTC milestone and Stream version:
+NuGet version, e.g. `1.12510310.0`, encodes both WebRTC milestone and Stream version.
 
