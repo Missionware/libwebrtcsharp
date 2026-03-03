@@ -50,13 +50,10 @@ jobs:
         build-tools-version: '34.0.0'
         
     - name: Install .NET Android workload
-      run: |
-        dotnet workload install android --skip-manifest-update
-        dotnet workload list
-   
-    - name: Install MAUI workload
-      run: |
-         dotnet workload install maui   
+      run: dotnet workload install android --skip-manifest-update
+
+    - name: Install .NET MAUI workload
+      run: dotnet workload install maui
    
     - name: Display build environment info
       run: |
@@ -65,37 +62,20 @@ jobs:
         echo "ANDROID_HOME=$env:ANDROID_HOME"
         echo "ANDROID_SDK_ROOT=$env:ANDROID_SDK_ROOT"
 
-    - name: Clean build artifacts
-      run: |
-        if (Test-Path "Missionware.LibWebrtcSharp.Android/obj") { Remove-Item -Recurse -Force "Missionware.LibWebrtcSharp.Android/obj" }
-        if (Test-Path "Missionware.LibWebrtcSharp.Android/bin") { Remove-Item -Recurse -Force "Missionware.LibWebrtcSharp.Android/bin" }
-
-    - name: Restore dependencies
-      run: dotnet restore ${{ env.PROJECT_PATH }} -v detailed
-
     - name: Build project
+      shell: pwsh
       run: |
-        dotnet build ${{ env.PROJECT_PATH }} `
-          --configuration ${{ env.CONFIGURATION }} `
-          --no-restore `
-          -p:AndroidSdkDirectory="$env:ANDROID_HOME" `
-          -p:JavaSdkDirectory="$env:JAVA_HOME" `
-          -v detailed `
-          -bl:build.binlog
+        .\scripts\build.ps1 -Configuration ${{ env.CONFIGURATION }} -Clean -Verbose
 
     - name: Pack NuGet package
+      shell: pwsh
       run: |
-        dotnet pack ${{ env.PROJECT_PATH }} `
-          --configuration ${{ env.CONFIGURATION }} `
-          --no-build `
-          --output ./artifacts `
-          -p:IncludeSymbols=false `
-          -v detailed
+        .\scripts\pack.ps1 -Configuration ${{ env.CONFIGURATION }} -Verbose
 
     - name: List package contents
       run: |
-        Get-ChildItem ./artifacts -Recurse
-        $package = Get-ChildItem ./artifacts/*.nupkg | Select-Object -First 1
+        Get-ChildItem .\artifacts -Recurse
+        $package = Get-ChildItem .\artifacts\*.nupkg | Select-Object -First 1
         Write-Host "Package: $($package.Name)"
         Write-Host "Size: $([math]::Round($package.Length / 1MB, 2)) MB"
 
@@ -103,7 +83,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: nuget-package
-        path: ./artifacts/*.nupkg
+        path: .\artifacts\*.nupkg
         retention-days: 7
 
     - name: Upload build logs (on failure)
@@ -142,13 +122,9 @@ jobs:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
     - name: Publish to NuGet.org
+      shell: pwsh
       run: |
-        dotnet nuget push ./artifacts/*.nupkg \
-          --api-key ${{ secrets.NUGET_API_KEY }} \
-          --source https://api.nuget.org/v3/index.json \
-          --skip-duplicate
-      env:
-        NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+        .\scripts\publish.ps1 -ApiKey ${{ secrets.NUGET_API_KEY }}
 
     - name: Create GitHub Release
       if: startsWith(github.ref, 'refs/tags/v')

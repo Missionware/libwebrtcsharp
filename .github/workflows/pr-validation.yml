@@ -6,6 +6,7 @@ on:
     paths:
       - 'Missionware.LibWebrtcSharp.Android/**'
       - '.github/workflows/**'
+      - 'scripts/**'
 
 env:
   DOTNET_VERSION: '9.0.x'
@@ -32,24 +33,24 @@ jobs:
         distribution: 'microsoft'
         java-version: '17'
 
-    - name: Install .NET workloads
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+
+    - name: Install .NET Android workload
+      run: dotnet workload install android --skip-manifest-update
+
+    - name: Install .NET MAUI workload
+      run: dotnet workload install maui
+
+    - name: Build and Pack project
+      shell: pwsh
       run: |
-        dotnet workload install android
-        dotnet workload list
-
-    - name: Restore dependencies
-      run: dotnet restore ${{ env.PROJECT_PATH }}
-
-    - name: Build project
-      run: dotnet build ${{ env.PROJECT_PATH }} --configuration ${{ env.CONFIGURATION }} --no-restore
-
-    - name: Pack NuGet package
-      run: dotnet pack ${{ env.PROJECT_PATH }} --configuration ${{ env.CONFIGURATION }} --no-build --output ./artifacts
+        .\scripts\build-and-pack.ps1 -Configuration ${{ env.CONFIGURATION }} -Verbose
 
     - name: Validate package metadata
       shell: pwsh
       run: |
-        $package = Get-ChildItem -Path ./artifacts/*.nupkg | Select-Object -First 1
+        $package = Get-ChildItem -Path .\artifacts\*.nupkg | Select-Object -First 1
         Write-Host "Package created: $($package.Name)"
         Write-Host "Package size: $([math]::Round($package.Length / 1MB, 2)) MB"
         
