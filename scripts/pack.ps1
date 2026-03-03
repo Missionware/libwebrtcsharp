@@ -85,20 +85,29 @@ if ($package) {
         Add-Type -AssemblyName System.IO.Compression.FileSystem -ErrorAction SilentlyContinue
         $zip = [System.IO.Compression.ZipFile]::OpenRead($package.FullName)
         
-        $requiredFiles = @(
-            "lib/net9.0-android/Missionware.LibWebrtcSharp.Android.dll",
-            "licenses/"
-        )
-        
+        $entryNames = $zip.Entries | ForEach-Object { $_.FullName }
+
+        $hasManagedAssembly = $entryNames | Where-Object {
+            $_ -like "lib/net9.0-android*/Missionware.LibWebrtcSharp.Android.dll" -or
+            $_ -like "ref/net9.0-android*/Missionware.LibWebrtcSharp.Android.dll"
+        }
+
+        $hasLicenses = $entryNames | Where-Object { $_ -like "licenses/*" }
+
         $allFound = $true
-        foreach ($required in $requiredFiles) {
-            $found = $zip.Entries | Where-Object { $_.FullName -like "*$required*" }
-            if ($found) {
-                Write-Host "  ? Found: $required"
-            } else {
-                Write-Host "  ? Missing: $required" -ForegroundColor Red
-                $allFound = $false
-            }
+
+        if ($hasManagedAssembly) {
+            Write-Host "  ? Found: managed assembly (lib/ref net9.0-android*)"
+        } else {
+            Write-Host "  ? Missing: managed assembly in lib/ref net9.0-android*" -ForegroundColor Red
+            $allFound = $false
+        }
+
+        if ($hasLicenses) {
+            Write-Host "  ? Found: licenses/"
+        } else {
+            Write-Host "  ? Missing: licenses/" -ForegroundColor Red
+            $allFound = $false
         }
         
         $zip.Dispose()

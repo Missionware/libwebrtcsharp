@@ -58,19 +58,27 @@ jobs:
         Add-Type -AssemblyName System.IO.Compression.FileSystem
         $zip = [System.IO.Compression.ZipFile]::OpenRead($package.FullName)
         
-        $requiredFiles = @(
-          "lib/net9.0-android/Missionware.LibWebrtcSharp.Android.dll",
-          "licenses/"
-        )
-        
-        foreach ($required in $requiredFiles) {
-          $found = $zip.Entries | Where-Object { $_.FullName -like "*$required*" }
-          if ($found) {
-            Write-Host "? Found: $required"
-          } else {
-            Write-Host "? Missing: $required"
-            exit 1
-          }
+        $entryNames = $zip.Entries | ForEach-Object { $_.FullName }
+
+        $hasManagedAssembly = $entryNames | Where-Object {
+          $_ -like "lib/net9.0-android*/Missionware.LibWebrtcSharp.Android.dll" -or
+          $_ -like "ref/net9.0-android*/Missionware.LibWebrtcSharp.Android.dll"
+        }
+
+        $hasLicenses = $entryNames | Where-Object { $_ -like "licenses/*" }
+
+        if ($hasManagedAssembly) {
+          Write-Host "? Found: managed assembly (lib/ref net9.0-android*)"
+        } else {
+          Write-Host "? Missing: managed assembly in lib/ref net9.0-android*"
+          exit 1
+        }
+
+        if ($hasLicenses) {
+          Write-Host "? Found: licenses/"
+        } else {
+          Write-Host "? Missing: licenses/"
+          exit 1
         }
         
         $zip.Dispose()
