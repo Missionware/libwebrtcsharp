@@ -39,6 +39,7 @@ Write-Host "Packing NuGet package..." -ForegroundColor Yellow
 & dotnet pack $PROJECT_PATH `
     --configuration $Configuration `
     --no-build `
+    --no-restore `
     --output $ARTIFACTS_PATH `
     -p:IncludeSymbols=false `
     -v $(if ($Verbose) { "detailed" } else { "minimal" })
